@@ -28,7 +28,8 @@
     .locals 2
     sget-object v0, Lcom/facebook/aura/header/view/HeaderLeadingButton;->SidePanel:Lcom/facebook/aura/header/view/HeaderLeadingButton;
     if-ne p0, v0, :return_original
-    invoke-static {p2}, LX/3NK;->A0M(LX/2yV;)Lcom/facebook/aura/navigation/AuraNavigator;
+    const/4 v0, 0x0
+    invoke-static {p2, p2, v0}, LX/3NK;->A0S(LX/2yV;Ljava/lang/Object;I)Lcom/facebook/aura/navigation/AuraNavigator;
     move-result-object v0
     new-instance v1, Lcom/facebook/aura/settings/internal/mcdebug/SidePanelShortcutCallback14;
     invoke-direct {v1, p1, v0}, Lcom/facebook/aura/settings/internal/mcdebug/SidePanelShortcutCallback14;-><init>(Lkotlin/jvm/functions/Function0;Lcom/facebook/aura/navigation/AuraNavigator;)V

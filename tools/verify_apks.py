@@ -70,6 +70,18 @@ else:
     json_callback='AuraMCDebugJsonBridge'
 check('Top-left menu long-press hook attached',callback+'->maybeWrap' in text(menu))
 check('Long-press preserves original tap callback',all(s in text(surface) for s in [callback+'->maybeAttachLongPress',callback+'->maybeKeepDefaultTap']))
+if version=='14.0.0.4.149':
+    nav_name='A0S'
+    nav_desc='(LX/2yV;Ljava/lang/Object;I)Lcom/facebook/aura/navigation/AuraNavigator;'
+    callback_desc='(Lcom/facebook/aura/header/view/HeaderLeadingButton;Lkotlin/jvm/functions/Function0;LX/2yV;)Lkotlin/jvm/functions/Function0;'
+else:
+    nav_name='A0M'
+    nav_desc='(LX/2Os;)Lcom/facebook/aura/navigation/AuraNavigator;'
+    callback_desc='(Lcom/facebook/aura/header/view/HeaderLeadingButton;Lkotlin/jvm/functions/Function0;LX/2Os;)Lkotlin/jvm/functions/Function0;'
+callback_wrap=method(patched,callback,'maybeWrap',callback_desc)
+nav_ref='LX/3NK;->'+nav_name+nav_desc
+check('Long-press navigator accessor matches this Muse version',nav_ref.replace(' ','') in text(callback_wrap).replace(' ',''))
+method(original,'LX/3NK;',nav_name,nav_desc)
 json_menu=method(patched,'Lcom/facebook/aura/settings/internal/mcdebug/AuraMCDebugScreenKt$OptionsMenu$1$1$1;','invoke','(Lcom/facebook/aura/vds/compose/contextmenu/AuraContextMenuItem;)V')
 result_desc='(LX/2yV;I)LX/1dG;' if version=='14.0.0.4.149' else '(LX/2Os;I)LX/9IF;'
 json_result=method(patched,'Lcom/facebook/aura/settings/internal/mcdebug/AuraMCDebugScreenKt$OptionsMenu$1$2;','invoke',result_desc)
